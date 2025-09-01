@@ -1,0 +1,30 @@
+{
+  "name": "proyecto-escolar-back",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ErosChristensen/Proyecto-Escolar-Back#readme",
+  "bugs": {
+    "url": "https://github.com/ErosChristensen/Proyecto-Escolar-Back/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErosChristensen/Proyecto-Escolar-Back.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "back": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mailer": "^0.6.7",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.14.4",
+    "path": "^0.12.7"
+  }
+}
