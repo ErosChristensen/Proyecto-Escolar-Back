@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import Noticias from "./routes/noticias.js";
+import Login from "./routes/login.js";
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use("/api/noticias", Noticias  );
+app.use("/api/login", Login );
 
 app.get("/", (req, res) => {
   res.send("Servidor backend funcionando");

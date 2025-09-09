@@ -4,11 +4,6 @@ import pool from "../db.js";
 
 const router = express.Router();
 
-/* =========
-   Helpers
-   ========= */
-
-// Validación mínima al crear
 function validateCreate(req, res, next) {
   const { titulo, descripcion, fecha } = req.body;
   if (!titulo || !descripcion || !fecha) {
@@ -16,8 +11,6 @@ function validateCreate(req, res, next) {
   }
   next();
 }
-
-// Para updates parciales
 function buildUpdateSet(body) {
   const allowed = ["titulo", "descripcion", "fecha", "imagen1", "imagen2", "imagen3"];
   const fields = [];
@@ -31,9 +24,6 @@ function buildUpdateSet(body) {
   return { fields, values };
 }
 
-/* =========
-   Rutas
-   ========= */
 
 // GET: listar todas
 router.get("/", async (_req, res) => {
@@ -95,7 +85,6 @@ router.put("/:id", async (req, res) => {
       return res.status(400).json({ error: "No se enviaron campos para actualizar" });
     }
 
-    // Verifica existencia
     const [exist] = await pool.query("SELECT id_noticias FROM noticias WHERE id_noticias = ?", [id]);
     if (exist.length === 0) return res.status(404).json({ error: "Noticia no encontrada" });
 
