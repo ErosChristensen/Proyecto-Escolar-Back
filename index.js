@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 
 import Noticias from "./routes/noticias.js";
 import Login from "./routes/login.js";
-
+import Modificaciones from "./routes/modifications.js";
 dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use("/api/noticias", Noticias  );
 app.use("/api/login", Login );
-
+app.use("/api" , Modificaciones );
 app.get("/", (req, res) => {
   res.send("Servidor backend funcionando");
 });

@@ -1,0 +1,50 @@
+{
+  "titulo_principal": "MAS DE 50 AÑOS FORMANDO TECNICOS DE EXCELENCIA",
+  "descripcion_escuela_parrafo_1": "e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
+  "descripcion_escuela_parrafo_2": "e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
+  "autoridades": [
+    {
+      "nombre": "Hernan Blasco",
+      "cargo": "Director"
+    },
+    {
+      "nombre": "Juliana Ascazuri",
+      "cargo": "Vicedirectora"
+    },
+    {
+      "nombre": "Ana Varinotte",
+      "cargo": "Secretaria"
+    },
+    {
+      "nombre": "Josue Fernandez",
+      "cargo": "Director de Taller"
+    }
+  ],
+  "ubicacion": "Constitucion 228, Benito Juarez 7020 - Buenos Aires, Argentina",
+  "horarios": "Lunes a Viernes - 8:00 a 12:00",
+  "modalidad_1": "PROGRAMACION",
+  "modalidad_2": "ELECTROMECANICA",
+  "talleres": [
+    {
+      "nombre": "CARPINTERIA",
+      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+    },
+    {
+      "nombre": "HERRERIA",
+      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+    },
+    {
+      "nombre": "ELECTRICIDAD",
+      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+    },
+    {
+      "nombre": "HOJALATERIA",
+      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+    }
+  ],
+  "titulo_sobre_escuela": "UNA ESCUELA TECNICA QUE FORMA PROFESIONALES CON VALORES Y PROPOSITOS",
+  "valor1": "Responsabilidad",
+  "valor2": "Constancia",
+  "valor3": "Etíca",
+  "valor4": "Dedicacion"
+}
