@@ -1,120 +1,83 @@
+// routes/login.js
 import express from "express";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import db from "../db.js";
-import { enviarCodigoVerificacion } from "../utils/mailer.js";
+import { createRequire } from "module";
+const jwt = createRequire(import.meta.url)("jsonwebtoken"); // jwt.sign, jwt.verify
 
 const router = express.Router();
-const JWT_SECRET = "clave_super_secreta";
 
-// Login solo para administradores (usuario es el email)
+const JWT_SECRET = process.env.JWT_SECRET || "cambia_esto_en_.env";
+const JWT_TTL = process.env.JWT_ACCESS_TTL || "15m";
+
+function esEmail(v) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").toLowerCase());
+}
+
+// POST /api/login/
 router.post("/", async (req, res) => {
-  const { usuario, contraseña } = req.body;
-
-  if (!usuario || !contraseña) {
-    return res.status(400).json({ error: "Faltan datos obligatorios" });
-  }
-
   try {
-    const [rows] = await db.query("SELECT * FROM admin WHERE usuario = ?", [usuario]);
+    const usuario = (req.body?.usuario ?? "").toString().trim().toLowerCase();
+    // aceptamos 'contraseña' o 'contrasena' (Windows/PowerShell)
+    const contraseña = (req.body?.contraseña ?? req.body?.contrasena ?? "").toString();
 
-    if (rows.length === 0) {
+    if (!esEmail(usuario) || contraseña.length < 8) {
+      return res.status(400).json({ error: "Datos inválidos" });
+    }
+
+    // 🔧 FIX: faltaba la coma entre el SQL y el array de parámetros
+    // además uso LOWER() para que sea case-insensitive (por las dudas)
+const [rows] = await db.query(
+  "SELECT id_admin, usuario, nombre, `contraseña` AS hash, disabled FROM admin WHERE LOWER(usuario) = LOWER(?)",
+  [usuario]
+);
+
+    if (!rows.length) {
+      return res.status(401).json({ error: "Usuario o contraseña inválidos" });
+    }
+const user = rows[0];
+
+const hash =
+  (typeof user.hash === "string" && user.hash.length ? user.hash : null) ??
+  (typeof user["contraseña"] === "string" && user["contraseña"].length ? user["contraseña"] : null);
+
+if (!hash) {
+  console.error("[LOGIN] contraseña NULL/vacía en DB para", usuario);
+  return res.status(401).json({ error: "Usuario o contraseña inválidos" });
+}
+
+    const ok = await bcrypt.compare(contraseña, hash);
+    if (!ok) {
       return res.status(401).json({ error: "Usuario o contraseña inválidos" });
     }
 
-    const user = rows[0];
-
-    if (!user.contraseña) {
-      return res.status(401).json({ error: "Usuario o contraseña inválidos" });
+    if (user.disabled === 1) {
+      return res.status(403).json({ error: "Cuenta deshabilitada" });
     }
 
-    const match = await bcrypt.compare(contraseña, user.contraseña);
-
-    if (!match) {
-      return res.status(401).json({ error: "Usuario o contraseña inválidos" });
+    if (!process.env.JWT_SECRET) {
+      console.error("[LOGIN] FALTA JWT_SECRET en .env");
+      return res.status(500).json({ error: "Config faltante: JWT_SECRET" });
     }
 
     const token = jwt.sign(
-      {
-        id_admin: user.id_admin,
-        usuario: user.usuario,
-      },
-      JWT_SECRET,
-      { expiresIn: "2h" }
+      { sub: user.id_admin ?? user.id ?? user.usuario, role: "admin" },
+      process.env.JWT_SECRET,
+      { expiresIn: JWT_TTL }
     );
 
-    res.json({
-      mensaje: "Login exitoso",
+    return res.json({
       token,
-      usuario: {
-        id_admin: user.id_admin,
+      admin: {
+        id_admin: user.id_admin ?? user.id,
         usuario: user.usuario,
-      },
+        nombre: user.nombre ?? null,
+        role: "admin"
+      }
     });
-  } catch (error) {
-    console.error("Error en Login:", error);
-    res.status(500).json({ error: "Error en el login" });
-  }
-});
-
-// Solicitar cambio de contraseña (envía código por email)
-router.post("/changepass", async (req, res) => {
-  const { usuario } = req.body;
-
-  if (!usuario) {
-    return res.status(400).json({ error: "Falta el usuario" });
-  }
-
-  try {
-    const [rows] = await db.query("SELECT * FROM admin WHERE usuario = ?", [usuario]);
-
-    if (rows.length === 0) {
-      return res.status(404).json({ error: "Usuario no encontrado" });
-    }
-
-    const user = rows[0];
-    const codigoVerif = Math.floor(100000 + Math.random() * 900000).toString();
-
-    await db.query("UPDATE admin SET codigo_verif = ? WHERE id_admin = ?", [codigoVerif, user.id_admin]);
-
-    await enviarCodigoVerificacion(user.usuario, codigoVerif);
-
-    res.json({ mensaje: "Te enviamos un código por email para cambiar la contraseña." });
-  } catch (error) {
-    console.error("Error en SolicitarCambioContraseña:", error);
-    res.status(500).json({ error: "Error al solicitar cambio de contraseña." });
-  }
-});
-
-// Confirmar código y cambiar contraseña
-router.post("/changepassSuccess", async (req, res) => {
-  const { usuario, codigo, nuevaContraseña } = req.body;
-
-  if (!usuario || !codigo || !nuevaContraseña) {
-    return res.status(400).json({ error: "Faltan datos obligatorios" });
-  }
-
-  try {
-    const [rows] = await db.query(
-      "SELECT * FROM admin WHERE usuario = ? AND codigo_verif = ?",
-      [usuario, codigo]
-    );
-
-    if (rows.length === 0) {
-      return res.status(400).json({ error: "Código o usuario incorrecto" });
-    }
-
-    const hashedPassword = await bcrypt.hash(nuevaContraseña, 10);
-
-    await db.query(
-      "UPDATE admin SET contraseña = ?, codigo_verif = NULL WHERE id_admin = ?",
-      [hashedPassword, rows[0].id_admin]
-    );
-
-    res.json({ mensaje: "Contraseña cambiada correctamente." });
-  } catch (error) {
-    console.error("Error en ConfirmarCambioContraseña:", error);
-    res.status(500).json({ error: "Error al cambiar la contraseña." });
+  } catch (e) {
+    console.error("[LOGIN] 500:", e);
+    return res.status(500).json({ error: "Error en el login" });
   }
 });
 

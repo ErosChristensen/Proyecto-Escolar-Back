@@ -1,23 +1,31 @@
+// ./db.js
 import mysql from "mysql2";
 import dotenv from "dotenv";
 dotenv.config();
 
-const db = mysql.createPool({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT || 3306),
   user: process.env.DB_USER,
-  port:process.env.DB_PORT,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-}).promise();
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-async function test() {
+// Exporta interfaz de promesas para usar await db.query(...)
+const db = pool.promise();
+
+// Prueba rápida de conexión (opcional)
+  async function test() {
   try {
-    console.log("Conexion exitosa a la base de datos");
-  }
-  catch (err) {
-    console.error("Error conectando a la db" , err.message);
+    await db.query("SELECT 1");
+    console.log("Conexión a MySQL OK");
+  } catch (err) {
+    console.error("Error al conectar con la DB:", err.message);
   }
 }
-
 test();
+
 export default db;
