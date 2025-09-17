@@ -4,16 +4,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-dotenv.config();
-
+import Modificaciones from "./routes/modifications.js";
 import Noticias from "./routes/noticias.js";
 import Login from "./routes/login.js";
-<<<<<<< Updated upstream
-import Modificaciones from "./routes/modifications.js";
-dotenv.config();
-=======
 
->>>>>>> Stashed changes
+dotenv.config();
+
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,20 +27,12 @@ app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
 // Estáticos (si los usás)
 app.use(express.static(path.join(__dirname, "..", "public")));
-
-<<<<<<< Updated upstream
 app.use("/api/noticias", Noticias  );
 app.use("/api/login", Login );
 app.use("/api" , Modificaciones );
-app.get("/", (req, res) => {
-=======
-// Tus rutas
-app.use("/api/noticias", Noticias);
-app.use("/api/login", Login);
 
 // Root
 app.get("/", (_req, res) => {
->>>>>>> Stashed changes
   res.send("Servidor backend funcionando");
 });
 app.get("/debug/db", async (_req, res) => {
