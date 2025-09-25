@@ -7,6 +7,8 @@ import { fileURLToPath } from "url";
 import Modificaciones from "./routes/modifications.js";
 import Noticias from "./routes/noticias.js";
 import Login from "./routes/login.js";
+import AdminNoticias from "./routes/admin.noticias.js";
+import RequireAdmin from "./require.admin.js";
 
 dotenv.config();
 
@@ -21,15 +23,53 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Healthcheck arriba de todo (para testear rápido)
-app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
+app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
+
+
 
 // Estáticos (si los usás)
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use("/api/noticias", Noticias  );
 app.use("/api/login", Login );
 app.use("/api" , Modificaciones );
+
+
+//MODALIDADES
+
+// Ruta de elección de modalidad (agregada)
+app.post("/api/elegir-modalidad", (req, res) => {
+  const { estudianteId, modalidad } = req.body;
+
+  // Validar modalidad
+  if (modalidad !== "programacion" && modalidad !== "electronica") {
+    return res.status(400).json({
+      message: "Modalidad no válida. Debe ser 'programacion' o 'electronica'.",
+    });
+  }
+
+  console.log(`El estudiante con ID ${estudianteId} eligió la modalidad: ${modalidad}`);
+
+  res.status(200).json({ message: "Modalidad elegida correctamente" });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.use("/api/admin/noticias", RequireAdmin, AdminNoticias );
 
 // Root
 app.get("/", (_req, res) => {

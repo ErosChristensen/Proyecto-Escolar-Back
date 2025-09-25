@@ -1,6 +1,8 @@
 // routes/noticias.routes.js
 import express from "express";
 import pool from "../db.js";
+import stringSimilarity from "string-similarity";
+import { parseListQuery } from "../utils/validacion.js";
 
 const router = express.Router();
 
@@ -24,17 +26,90 @@ function buildUpdateSet(body) {
   return { fields, values };
 }
 
+router.get("/", parseListQuery, async (req, res) => {
+  const { q, page, pageSize, offset } = req;
 
-// GET: listar todas
-router.get("/", async (_req, res) => {
   try {
-    const [rows] = await pool.query(
-      "SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias ORDER BY id_noticias DESC"
+    // 1) Sin query o muy corta -> últimas
+    if (!q || q.length < 3) {
+      const [rows] = await pool.query(
+        `SELECT SQL_CALC_FOUND_ROWS id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3
+           FROM noticias
+          ORDER BY fecha DESC, id_noticias DESC
+          LIMIT ? OFFSET ?`,
+        [pageSize, offset]
+      );
+      const [[{ "FOUND_ROWS()": total }]] = await pool.query("SELECT FOUND_ROWS()");
+      return res.json({
+        ok: true,
+        mode: "latest",
+        hint: !q ? "Mostrando últimas novedades." : "Búsqueda muy corta; se muestran últimas novedades.",
+        page,
+        pageSize,
+        total,
+        items: rows,
+      });
+    }
+
+    // 2) Búsqueda básica con LIKE
+    const like = `%${q}%`;
+    let [items] = await pool.query(
+      `SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3
+         FROM noticias
+        WHERE titulo LIKE ? OR descripcion LIKE ?
+        ORDER BY fecha DESC, id_noticias DESC
+        LIMIT ? OFFSET ?`,
+      [like, like, pageSize, offset]
     );
-    res.json(rows);
+
+    // 3) Sugerencia si hay pocos resultados
+    let suggestion = null;
+    if (items.length < 3) {
+      const [allTitles] = await pool.query(`SELECT titulo FROM noticias`);
+      const candidates = allTitles.map((r) => r.titulo);
+      if (candidates.length > 0) {
+        const { bestMatch } = stringSimilarity.findBestMatch(q, candidates);
+        if (
+          bestMatch &&
+          bestMatch.rating >= 0.45 &&
+          bestMatch.target.toLowerCase() !== q.toLowerCase()
+        ) {
+          suggestion = bestMatch.target;
+          // Reintento con la sugerencia
+          const likeSug = `%${suggestion}%`;
+          const [rows2] = await db.query(
+            `SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3
+               FROM noticias
+              WHERE titulo LIKE ? OR descripcion LIKE ?
+              ORDER BY fecha DESC, id_noticias DESC
+              LIMIT ? OFFSET ?`,
+            [likeSug, likeSug, pageSize, offset]
+          );
+          if (rows2.length > items.length) items = rows2;
+        }
+      }
+    }
+
+    const [countRows] = await pool.query(
+      `SELECT COUNT(*) AS total
+         FROM noticias
+        WHERE (? = '' OR titulo LIKE CONCAT('%', ?, '%') OR descripcion LIKE CONCAT('%', ?, '%'))`,
+      [q, q, q]
+    );
+
+    return res.json({
+      ok: true,
+      mode: "search",
+      query: q,
+      suggestion, // para mostrar “¿Quisiste decir …?”
+      page,
+      pageSize,
+      total: countRows[0].total,
+      items,
+    });
   } catch (error) {
     console.error("Error al obtener noticias:", error);
-    res.status(500).json({ error: "Error en el servidor" });
+    res.status(500).json({ ok: false, error: "Error en el servidor" });
   }
 });
 
@@ -54,69 +129,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST: crear noticia
-router.post("/", validateCreate, async (req, res) => {
-  try {
-    const { titulo, descripcion, fecha, imagen1 = null, imagen2 = null, imagen3 = null } = req.body;
 
-    const [result] = await pool.query(
-      `INSERT INTO noticias (titulo, descripcion, fecha, imagen1, imagen2, imagen3)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [titulo, descripcion, fecha, imagen1, imagen2, imagen3]
-    );
 
-    const [nueva] = await pool.query(
-      "SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
-      [result.insertId]
-    );
-    res.status(201).json(nueva[0]);
-  } catch (error) {
-    console.error("Error al crear noticia:", error);
-    res.status(500).json({ error: "Error en el servidor" });
-  }
-});
-
-// PUT: actualizar (parcial o completo)
-router.put("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { fields, values } = buildUpdateSet(req.body);
-    if (fields.length === 0) {
-      return res.status(400).json({ error: "No se enviaron campos para actualizar" });
-    }
-
-    const [exist] = await pool.query("SELECT id_noticias FROM noticias WHERE id_noticias = ?", [id]);
-    if (exist.length === 0) return res.status(404).json({ error: "Noticia no encontrada" });
-
-    const sql = `UPDATE noticias SET ${fields.join(", ")} WHERE id_noticias = ?`;
-    await pool.query(sql, [...values, id]);
-
-    const [actualizada] = await pool.query(
-      "SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
-      [id]
-    );
-    res.json(actualizada[0]);
-  } catch (error) {
-    console.error("Error al actualizar noticia:", error);
-    res.status(500).json({ error: "Error en el servidor" });
-  }
-});
-
-// DELETE: eliminar
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const [exist] = await pool.query("SELECT id_noticias FROM noticias WHERE id_noticias = ?", [id]);
-    if (exist.length === 0) return res.status(404).json({ error: "Noticia no encontrada" });
-
-    await pool.query("DELETE FROM noticias WHERE id_noticias = ?", [id]);
-    res.json({ message: "Noticia eliminada correctamente" });
-  } catch (error) {
-    console.error("Error al eliminar noticia:", error);
-    res.status(500).json({ error: "Error en el servidor" });
-  }
-});
 
 export default router;
 
