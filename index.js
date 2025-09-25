@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import Modificaciones from "./routes/modifications.js";
 import Noticias from "./routes/noticias.js";
 import Login from "./routes/login.js";
+import { swaggerUi, swaggerSpec } from "./swaggerDocs.js";
 
 dotenv.config();
 
@@ -22,26 +23,17 @@ app.use(cors({
 
 app.use(express.json());
 
-// Healthcheck arriba de todo (para testear rápido)
-app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
-
 // Estáticos (si los usás)
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use("/api/noticias", Noticias  );
 app.use("/api/login", Login );
 app.use("/api" , Modificaciones );
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // Root
 app.get("/", (_req, res) => {
   res.send("Servidor backend funcionando");
-});
-app.get("/debug/db", async (_req, res) => {
-  try {
-    const [r] = await db.query("SELECT DATABASE() AS db");
-    res.json({ database: r[0]?.db || null });
-  } catch (e) {
-    res.status(500).json({ error: String(e?.message || e) });
-  }
 });
 
 // 404 al final

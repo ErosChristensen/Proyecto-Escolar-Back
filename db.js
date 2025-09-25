@@ -1,4 +1,3 @@
-// ./db.js
 import mysql from "mysql2";
 import dotenv from "dotenv";
 dotenv.config();
@@ -14,10 +13,8 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-// Exporta interfaz de promesas para usar await db.query(...)
 const db = pool.promise();
 
-// Prueba rápida de conexión (opcional)
   async function test() {
   try {
     await db.query("SELECT 1");
