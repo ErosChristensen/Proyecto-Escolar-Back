@@ -1,4 +1,3 @@
-// routes/noticias.routes.js
 import express from "express";
 import pool from "../db.js";
 import stringSimilarity from "string-similarity";
@@ -6,15 +5,17 @@ import { parseListQuery } from "../utils/validacion.js";
 
 const router = express.Router();
 
+// Validación al crear noticia
 function validateCreate(req, res, next) {
-  const { titulo, descripcion, fecha } = req.body;
-  if (!titulo || !descripcion || !fecha) {
-    return res.status(400).json({ error: "titulo, descripcion y fecha son obligatorios" });
+  const { titulo, subtitulo, descripcion, fecha } = req.body;
+  if (!titulo || !subtitulo || !descripcion || !fecha) {
+    return res.status(400).json({ error: "titulo, subtitulo, descripcion y fecha son obligatorios" });
   }
   next();
 }
+// Construir query dinámico para UPDATE
 function buildUpdateSet(body) {
-  const allowed = ["titulo", "descripcion", "fecha", "imagen1", "imagen2", "imagen3"];
+  const allowed = ["titulo", "subtitulo", "descripcion", "fecha", "imagen1", "imagen2", "imagen3"];
   const fields = [];
   const values = [];
   for (const key of allowed) {

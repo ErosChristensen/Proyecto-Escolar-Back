@@ -1,10 +1,8 @@
-// routes/login.js
 import express from "express";
 import bcrypt from "bcrypt";
 import db from "../db.js";
 import { createRequire } from "module";
-const jwt = createRequire(import.meta.url)("jsonwebtoken"); // jwt.sign, jwt.verify
-
+const jwt = createRequire(import.meta.url)("jsonwebtoken");
 const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || "cambia_esto_en_.env";
@@ -25,8 +23,6 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "Datos inválidos" });
     }
 
-    // 🔧 FIX: faltaba la coma entre el SQL y el array de parámetros
-    // además uso LOWER() para que sea case-insensitive (por las dudas)
 const [rows] = await db.query(
   "SELECT id_admin, usuario, nombre, `contraseña` AS hash, disabled FROM admin WHERE LOWER(usuario) = LOWER(?)",
   [usuario]
