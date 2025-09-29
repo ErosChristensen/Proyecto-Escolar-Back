@@ -34,7 +34,7 @@ app.use("/api/login", Login );
 app.use("/api" , Modificaciones );
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/admin/noticias", RequireAdmin, AdminNoticias );
 // Root

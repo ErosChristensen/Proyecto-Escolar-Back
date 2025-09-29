@@ -34,7 +34,7 @@ router.get("/", parseListQuery, async (req, res) => {
     // 1) Sin query o muy corta -> últimas
     if (!q || q.length < 3) {
       const [rows] = await pool.query(
-        `SELECT SQL_CALC_FOUND_ROWS id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3
+        `SELECT SQL_CALC_FOUND_ROWS id_noticias, titulo,subtitulo, descripcion, fecha, imagen1, imagen2, imagen3
            FROM noticias
           ORDER BY fecha DESC, id_noticias DESC
           LIMIT ? OFFSET ?`,
@@ -55,7 +55,7 @@ router.get("/", parseListQuery, async (req, res) => {
     // 2) Búsqueda básica con LIKE
     const like = `%${q}%`;
     let [items] = await pool.query(
-      `SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3
+      `SELECT id_noticias, titulo, subtitulo ,descripcion, fecha, imagen1, imagen2, imagen3
          FROM noticias
         WHERE titulo LIKE ? OR descripcion LIKE ?
         ORDER BY fecha DESC, id_noticias DESC
@@ -79,7 +79,7 @@ router.get("/", parseListQuery, async (req, res) => {
           // Reintento con la sugerencia
           const likeSug = `%${suggestion}%`;
           const [rows2] = await db.query(
-            `SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3
+            `SELECT id_noticias, titulo, subtitulo , descripcion, fecha, imagen1, imagen2, imagen3
                FROM noticias
               WHERE titulo LIKE ? OR descripcion LIKE ?
               ORDER BY fecha DESC, id_noticias DESC
@@ -119,7 +119,7 @@ router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const [rows] = await pool.query(
-      "SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
+      "SELECT id_noticias, titulo, subtitulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
       [id]
     );
     if (rows.length === 0) return res.status(404).json({ error: "Noticia no encontrada" });

@@ -14,7 +14,7 @@ router.post(
   validateCreate,
   async (req, res) => {
     try {
-      const { titulo, descripcion, fecha } = req.body;
+      const { titulo, subtitulo, descripcion, fecha } = req.body;
 
       const files = req.files || [];
       const paths = files.map((f) => `/uploads/${f.filename}`);
@@ -23,13 +23,13 @@ router.post(
       const imagen3 = paths[2] || toNullIfEmpty(req.body.imagen3);
 
       const [result] = await pool.query(
-        `INSERT INTO noticias (titulo, descripcion, fecha, imagen1, imagen2, imagen3)
+        `INSERT INTO noticias (titulo, subtitulo, descripcion, fecha, imagen1, imagen2, imagen3)
          VALUES (?, ?, COALESCE(?, CURDATE()), ?, ?, ?)`,
-        [titulo, descripcion, fecha, imagen1, imagen2, imagen3]
+        [titulo, subtitulo ,descripcion, fecha, imagen1, imagen2, imagen3]
       );
 
       const [nueva] = await pool.query(
-        "SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
+        "SELECT id_noticias, titulo, subtitulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
         [result.insertId]
       );
       res.status(201).json({ ok: true, item: nueva[0] });
@@ -103,7 +103,7 @@ router.put(
       await pool.query(sql, [...values, id]);
 
       const [actualizada] = await pool.query(
-        "SELECT id_noticias, titulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
+        "SELECT id_noticias, subtitulo, titulo, descripcion, fecha, imagen1, imagen2, imagen3 FROM noticias WHERE id_noticias = ?",
         [id]
       );
       res.json({ ok: true, item: actualizada[0] });
