@@ -10,6 +10,7 @@ import Login from "./routes/login.js";
 import { swaggerUi, swaggerSpec } from "./swaggerDocs.js";
 import AdminNoticias from "./routes/admin.noticias.js";
 import RequireAdmin from "./require.admin.js";
+import formularioRoutes from "./routes/formulario.js";
 dotenv.config();
 
 const app = express();
@@ -32,8 +33,9 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 app.use("/api/noticias", Noticias  );
 app.use("/api/login", Login );
 app.use("/api" , Modificaciones );
-app.use(express.urlencoded({ extended: true }));
+app.use("/formulario", formularioRoutes);
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "..", "public/uploads")));
 
