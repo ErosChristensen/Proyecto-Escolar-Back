@@ -40,6 +40,226 @@ const swaggerSpec = swaggerJSDoc(options);
 /**
  * @swagger
  * tags:
+ *   - name: Formulario
+ *     description: Elección de modalidad y validación por código
+ */
+
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: Enviar formulario de elección de modalidad
+ *     tags: [Formulario]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - dni
+ *               - alumno
+ *               - mail
+ *               - respuestas_formulario
+ *               - modalidad_elegida
+ *             properties:
+ *               dni:
+ *                 type: string
+ *               alumno:
+ *                 type: string
+ *               mail:
+ *                 type: string
+ *                 format: email
+ *               respuestas_formulario:
+ *                 type: object
+ *                 description: Respuestas del alumno al formulario
+ *               modalidad_elegida:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Formulario enviado y confirmado por mail
+ *       400:
+ *         description: Ya se envió el formulario o faltan datos
+ *       500:
+ *         description: Error interno del servidor
+ */
+
+/**
+ * @swagger
+ * /pedir-codigo:
+ *   post:
+ *     summary: Solicitar código de verificación por mail
+ *     tags: [Formulario]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - dni
+ *               - mail
+ *             properties:
+ *               dni:
+ *                 type: string
+ *               mail:
+ *                 type: string
+ *                 format: email
+ *     responses:
+ *       200:
+ *         description: Código enviado al mail
+ *       400:
+ *         description: Falta DNI o mail
+ *       500:
+ *         description: No se pudo enviar el correo
+ */
+
+/**
+ * @swagger
+ * /validar-codigo:
+ *   post:
+ *     summary: Validar código de verificación
+ *     tags: [Formulario]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - dni
+ *               - codigo
+ *             properties:
+ *               dni:
+ *                 type: string
+ *               codigo:
+ *                 type: string
+ *                 description: Código de 6 dígitos enviado al mail
+ *     responses:
+ *       200:
+ *         description: Código válido, puede completar el formulario
+ *       400:
+ *         description: Código incorrecto, expirado o faltan datos
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Admin Noticias
+ *     description: Endpoints de administración para gestionar noticias con imágenes
+ */
+
+/**
+ * @swagger
+ * /admin/noticias:
+ *   post:
+ *     summary: Crear una noticia (con imágenes opcionales)
+ *     tags: [Admin Noticias]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - titulo
+ *               - descripcion
+ *             properties:
+ *               titulo:
+ *                 type: string
+ *               subtitulo:
+ *                 type: string
+ *               descripcion:
+ *                 type: string
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *               imagenes:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: Hasta 3 imágenes
+ *     responses:
+ *       201:
+ *         description: Noticia creada correctamente
+ *       400:
+ *         description: Datos inválidos
+ *       500:
+ *         description: Error en el servidor
+ */
+
+/**
+ * @swagger
+ * /admin/noticias/{id}:
+ *   put:
+ *     summary: Actualizar una noticia existente
+ *     tags: [Admin Noticias]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la noticia
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               titulo:
+ *                 type: string
+ *               subtitulo:
+ *                 type: string
+ *               descripcion:
+ *                 type: string
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *               imagenes:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: Hasta 3 imágenes nuevas (reemplazan a las anteriores)
+ *     responses:
+ *       200:
+ *         description: Noticia actualizada correctamente
+ *       400:
+ *         description: No se enviaron campos para actualizar
+ *       404:
+ *         description: Noticia no encontrada
+ *       500:
+ *         description: Error en el servidor
+ */
+
+/**
+ * @swagger
+ * /admin/noticias/{id}:
+ *   delete:
+ *     summary: Eliminar una noticia
+ *     tags: [Admin Noticias]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la noticia
+ *     responses:
+ *       200:
+ *         description: Noticia eliminada correctamente
+ *       404:
+ *         description: Noticia no encontrada
+ *       500:
+ *         description: Error en el servidor
+ */
+
+/**
+ * @swagger
+ * tags:
  *   name: Noticias
  *   description: Endpoints para gestionar noticias
  */
