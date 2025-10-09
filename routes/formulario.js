@@ -37,29 +37,48 @@ router.post("/", async (req, res) => {
     res.status(500).json({ mensaje: "Error interno del servidor" });
   }
 });
+
 // 👉 POST /pedir-codigo
 router.post("/pedir-codigo", async (req, res) => {
-  const { dni, mail } = req.body;
-  if (!dni || !mail) return res.status(400).json({ error: "Falta DNI o mail" });
-
-  // Generar código de 6 dígitos
-  const codigo = Math.floor(100000 + Math.random() * 900000).toString();
-
-  // Guardar en memoria, expira en 5 minutos
-  codigosVerificacion[dni] = {
-    codigo,
-    mail,
-    expiracion: Date.now() + 5 * 60 * 1000 // 5 minutos en ms
-  };
+  const { dni, mail, alumno } = req.body;  // 👈 usamos "alumno"
+  if (!dni || !mail || !alumno) {
+    return res.status(400).json({ 
+      error: "Falta DNI, alumno o mail" 
+    });
+  }
 
   try {
+    // ✅ Validar si existe en la base de datos
+    const [rows] = await db.query(
+      "SELECT * FROM alumnos WHERE dni = ? AND alumno = ?",
+      [dni, alumno]
+    );
+
+    if (rows.length === 0) {
+      return res.status(400).json({
+        error: "El usuario ingresado no se encuentra registrado en la institución. Verifique los datos de ingreso o comuníquese con los directivos."
+      });
+    }
+
+    // Generar código de 6 dígitos
+    const codigo = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Guardar en memoria, expira en 5 minutos
+    codigosVerificacion[dni] = {
+      codigo,
+      mail,
+      expiracion: Date.now() + 5 * 60 * 1000
+    };
+
     await enviarCodigoVerificacion(mail, codigo);
     res.json({ mensaje: "Código enviado al mail" });
+
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "No se pudo enviar el correo" });
+    console.error("Error en /pedir-codigo:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 // 👉 POST /validar-codigo
 router.post("/validar-codigo", (req, res) => {
@@ -67,7 +86,6 @@ router.post("/validar-codigo", (req, res) => {
   if (!dni || !codigo) return res.status(400).json({ error: "Falta DNI o código" });
 
   const entry = codigosVerificacion[dni];
-
   if (!entry) return res.status(400).json({ error: "No se solicitó código para este DNI" });
 
   if (Date.now() > entry.expiracion) {
