@@ -9,9 +9,9 @@ import Login from "./routes/login.js";
 import { swaggerUi, swaggerSpec } from "./swaggerDocs.js";
 import AdminNoticias from "./routes/admin.noticias.js";
 import RequireAdmin from "./require.admin.js";
+import preInscripcionForm from "./routes/preInscripcionForm.js";
 import formularioRoutes from "./routes/formulario.js";
-
-dotenv.config();
+dotenv.config();  
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -43,6 +43,7 @@ app.use("/api", Modificaciones);
 app.use("/formulario", formularioRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/admin/noticias", RequireAdmin, AdminNoticias);
+app.use("/api/preinscripcion", preInscripcionForm);
 
 // Root
 app.get("/", (_req, res) => {
