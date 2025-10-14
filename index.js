@@ -34,8 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
 // Archivos estáticos
-app.use(express.static(path.join(__dirname, "..", "public")));
-app.use("/uploads", express.static(path.join(__dirname, "..", "public/uploads")));
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 
 // -----------------------------
 // Rutas
