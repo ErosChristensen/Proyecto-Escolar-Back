@@ -11,6 +11,7 @@ import AdminNoticias from "./routes/admin.noticias.js";
 import RequireAdmin from "./require.admin.js";
 import preInscripcionForm from "./routes/preInscripcionForm.js";
 import formularioRoutes from "./routes/formulario.js";
+import AdminRegistro from "./routes/admin.registro.js";
 dotenv.config();  
 
 const app = express();
@@ -44,6 +45,7 @@ app.use("/formulario", formularioRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/admin/noticias", RequireAdmin, AdminNoticias);
 app.use("/api/preinscripcion", preInscripcionForm);
+app.use("/api/admin/registro", RequireAdmin, AdminRegistro);
 
 // Root
 app.get("/", (_req, res) => {
