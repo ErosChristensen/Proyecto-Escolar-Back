@@ -8,7 +8,7 @@ const router = express.Router();
    ----------------------------------------------------------
    Devuelve los registros de la tabla pre_inscripcion
 ========================================================== */
-router.get('/preinscripciones', async (req, res) => {
+router.get('/preinscripcion', async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT 
