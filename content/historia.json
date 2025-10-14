@@ -1,7 +1,7 @@
 {
-  "titulo_principal": "MAS DE 50 AÑOS FORMANDO TECNICOS DE EXCELENCIA",
-  "descripcion_escuela_parrafo_1": "e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-  "descripcion_escuela_parrafo_2": "e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.e abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
+  "titulo_principal": "MÁS DE 50 AÑOS FORMANDO TÉCNICOS DE EXCELENCIA",
+  "descripcion_escuela_parrafo_1": "Nuestra institución técnica se caracteriza por brindar una formación integral, combinando conocimientos teóricos con una sólida práctica profesional. A lo largo de los años, hemos acompañado a generaciones de estudiantes en su desarrollo personal y académico, preparándolos para los desafíos del mundo laboral y tecnológico actual.",
+  "descripcion_escuela_parrafo_2": "Contamos con un equipo docente comprometido con la educación de calidad, promoviendo valores como la responsabilidad, el trabajo en equipo y la innovación. A través de proyectos, talleres y actividades formativas, buscamos fomentar la curiosidad, la creatividad y el compromiso social en cada uno de nuestros alumnos.",
   "autoridades": [
     {
       "nombre": "Hernan Blasco",
@@ -20,31 +20,31 @@
       "cargo": "Director de Taller"
     }
   ],
-  "ubicacion": "Constitucion 228, Benito Juarez 7020 - Buenos Aires, Argentina",
+  "ubicacion": "Constitución 228, Benito Juárez 7020 - Buenos Aires, Argentina",
   "horarios": "Lunes a Viernes - 8:00 a 12:00",
-  "modalidad_1": "PROGRAMACION",
-  "modalidad_2": "ELECTROMECANICA",
+  "modalidad_1": "PROGRAMACIÓN",
+  "modalidad_2": "ELECTROMECÁNICA",
   "talleres": [
     {
-      "nombre": "CARPINTERIA",
-      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+      "nombre": "CARPINTERÍA",
+      "descripcion": "En este taller, los estudiantes desarrollan habilidades manuales y técnicas aplicadas a la madera, aprendiendo a diseñar y construir piezas funcionales y creativas. Se fomenta el trabajo preciso, la planificación y la responsabilidad en cada etapa del proceso productivo."
     },
     {
-      "nombre": "HERRERIA",
-      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+      "nombre": "HERRERÍA",
+      "descripcion": "El taller de herrería permite a los alumnos adquirir conocimientos sobre el trabajo con metales, utilizando herramientas y técnicas tradicionales y modernas. Se busca promover la disciplina, la seguridad y la creatividad en la fabricación de estructuras y componentes metálicos."
     },
     {
       "nombre": "ELECTRICIDAD",
-      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+      "descripcion": "Los estudiantes aprenden a interpretar planos eléctricos, realizar instalaciones seguras y comprender el funcionamiento de los sistemas eléctricos domiciliarios e industriales. La práctica constante les permite aplicar los conceptos técnicos en situaciones reales."
     },
     {
-      "nombre": "HOJALATERIA",
-      "descripcion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología."
+      "nombre": "HOJALATERÍA",
+      "descripcion": "En este espacio se combinan la precisión técnica y la destreza manual para el trabajo con láminas metálicas. Los alumnos adquieren experiencia en corte, moldeado y ensamblado, aplicando normas de seguridad y calidad en cada proyecto."
     }
   ],
-  "titulo_sobre_escuela": "UNA ESCUELA TECNICA QUE FORMA PROFESIONALES CON VALORES Y PROPOSITOS",
+  "titulo_sobre_escuela": "UNA ESCUELA TÉCNICA QUE FORMA PROFESIONALES CON VALORES Y PROPÓSITOS",
   "valor1": "Responsabilidad",
   "valor2": "Constancia",
-  "valor3": "Etíca",
-  "valor4": "Dedicacion"
+  "valor3": "Ética",
+  "valor4": "Dedicación"
 }
