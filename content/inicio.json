@@ -1,19 +1,17 @@
 {
   "titulo_principal": "TECNICOS EN EL CAMPO DE LA PROGRAMACION Y ELECTROMECANICA",
-   "modalidad_1": "ELECTROMECANICA",
-   "modalidad_2": "PROGRAMACION",
-   "taller_1": "CARPINTERIA",
-   "taller_2": "HERRERIA",
-   "taller_3": "ELECTRICIDAD",
-   "taller_4": "HOJALATERIA",
-
+  "modalidad_1": "ELECTROMECANICA",
+  "modalidad_2": "PROGRAMACION",
+  "taller_1": "CARPINTERIA",
+  "taller_2": "HERRERIA",
+  "taller_3": "ELECTRICIDAD",
+  "taller_4": "HOJALATERIA",
   "titulo_sobre_escuela": "UNA COMUNIDAD EDUCATIVA QUE FORMA TECNICOS CON IDENTIDAD Y COMPROMISO",
   "valor1": "Respeto",
   "valor2": "Disciplina",
   "valor3": "Responsabilidad",
   "valor4": "Vocacion",
-
-    "preguntas_frecuentes": [
+  "preguntas_frecuentes": [
     {
       "numero": "1",
       "pregunta": "¿La escuela tiene uniforme?",
@@ -32,7 +30,27 @@
     {
       "numero": "4",
       "pregunta": "¿Es doble jornada?",
-      "respuesta": "Si, la escuela posée un código de vestimenta. Este se basa en los colores azules, blancos, y negros. También ofrecemos la posibilidad de adquirir con la vestimenta oficial con el logo del establecimiento."
+      "respuesta": "nop"
+    }
+  ],
+  "descripcion_escuela_parrafo_1": "",
+  "descripcion_escuela_parrafo_2": "",
+  "talleres": [
+    {
+      "nombre": "CARPINTERIO A",
+      "descripcion": ""
+    },
+    {
+      "nombre": "HERRERIA A",
+      "descripcion": ""
+    },
+    {
+      "nombre": "ELECTRICIDAD A",
+      "descripcion": ""
+    },
+    {
+      "nombre": "HOJALATERIA A",
+      "descripcion": ""
     }
   ]
 }

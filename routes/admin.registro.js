@@ -1,5 +1,5 @@
 import express from 'express';
-import { pool } from '../db.js';
+import db from '../db.js';
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ const router = express.Router();
 ========================================================== */
 router.get('/preinscripcion', async (req, res) => {
   try {
-    const [rows] = await pool.query(`
+    const [rows] = await db.query(`
       SELECT 
         id,
         nombre,
@@ -41,7 +41,7 @@ router.get('/preinscripcion', async (req, res) => {
 ========================================================== */
 router.get('/modalidades', async (req, res) => {
   try {
-    const [rows] = await pool.query(`
+    const [rows] = await db.query(`
       SELECT 
         id,
         nombre,
