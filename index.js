@@ -46,7 +46,12 @@ app.use("/formulario", formularioRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/admin/noticias", AdminNoticias);
 app.use("/api/preinscripcion", preInscripcionForm);
+app.use("/api/admin/registro", AdminRegistro);
+app.use("/api/admin/registro", preInscripcionFunction);
+app.use("/api/me", meRouter);
+//Agregar los RequireAdmin a la de AdminRegistro, AdminNoticias y preInscripcionFunction
 app.use("/api/admin", preInscripcionRoutes);
+app.use("/api/admin/registro", preInscripcionFunction);
 // Root
 app.get("/", (_req, res) => {
 res.send("Servidor backend funcionando");
