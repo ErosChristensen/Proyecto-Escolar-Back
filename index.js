@@ -13,6 +13,8 @@ import preInscripcionForm from "./routes/preInscripcionForm.js";
 import formularioRoutes from "./routes/formulario.js";
 import AdminRegistro from "./routes/admin.registro.js";
 import preInscripcionFunction from "./routes/preInscripcionFunction.js";
+import preInscripcionRoutes from "./routes/preInscripcionFunctions.js";
+
 dotenv.config();  
 
 const app = express();
@@ -48,10 +50,10 @@ app.use("/api/admin/noticias", AdminNoticias);
 app.use("/api/preinscripcion", preInscripcionForm);
 app.use("/api/admin/registro", AdminRegistro);
 app.use("/api/admin/registro", preInscripcionFunction);
-app.use("/api/me", meRouter);
 //Agregar los RequireAdmin a la de AdminRegistro, AdminNoticias y preInscripcionFunction
 app.use("/api/admin", preInscripcionRoutes);
 app.use("/api/admin/registro", preInscripcionFunction);
+app.use("/api/admin", preInscripcionRoutes);
 // Root
 app.get("/", (_req, res) => {
 res.send("Servidor backend funcionando");
