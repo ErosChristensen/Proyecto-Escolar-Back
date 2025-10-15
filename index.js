@@ -11,8 +11,14 @@ import AdminNoticias from "./routes/admin.noticias.js";
 import RequireAdmin from "./require.admin.js";
 import preInscripcionForm from "./routes/preInscripcionForm.js";
 import formularioRoutes from "./routes/formulario.js";
+<<<<<<< Updated upstream
 import AdminRegistro from "./routes/admin.registro.js";
 import preInscripcionFunction from "./routes/preInscripcionFunction.js";
+=======
+import preInscripcionRoutes from "./routes/preInscripcionFunctions.js";
+
+app.use("/api/admin", preInscripcionRoutes);
+>>>>>>> Stashed changes
 
 dotenv.config();  
 
@@ -47,9 +53,14 @@ app.use("/formulario", formularioRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/admin/noticias", AdminNoticias);
 app.use("/api/preinscripcion", preInscripcionForm);
+<<<<<<< Updated upstream
 app.use("/api/admin/registro", AdminRegistro);
 app.use("/api/admin/registro", preInscripcionFunction);
 //Agregar los RequireAdmin a la de AdminRegistro, AdminNoticias y preInscripcionFunction
+=======
+app.use("/api/admin", preInscripcionRoutes);
+
+>>>>>>> Stashed changes
 // Root
 app.get("/", (_req, res) => {
 res.send("Servidor backend funcionando");

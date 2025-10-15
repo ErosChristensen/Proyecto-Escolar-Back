@@ -38,9 +38,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 👉 POST /pedir-codigo
 router.post("/pedir-codigo", async (req, res) => {
-  const { dni, mail, alumno } = req.body;  // 👈 usamos "alumno"
+  const { dni, mail, alumno } = req.body; 
   if (!dni || !mail || !alumno) {
     return res.status(400).json({ 
       error: "Falta DNI, alumno o mail" 
@@ -48,7 +47,6 @@ router.post("/pedir-codigo", async (req, res) => {
   }
 
   try {
-    // ✅ Validar si existe en la base de datos
     const [rows] = await db.query(
       "SELECT * FROM alumnos WHERE dni = ? AND alumno = ?",
       [dni, alumno]
@@ -59,11 +57,9 @@ router.post("/pedir-codigo", async (req, res) => {
         error: "El usuario ingresado no se encuentra registrado en la institución. Verifique los datos de ingreso o comuníquese con los directivos."
       });
     }
-
-    // Generar código de 6 dígitos
     const codigo = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Guardar en memoria, expira en 5 minutos
+    // Guardar en memoria,  en 5 minutos
     codigosVerificacion[dni] = {
       codigo,
       mail,

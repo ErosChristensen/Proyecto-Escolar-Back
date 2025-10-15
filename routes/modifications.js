@@ -1,4 +1,3 @@
-// routes/index.js
 import express from "express";
 import modalidadesRouter from "./modifications_modalidades.js";
 import historiaRouter from "./modifications_historia.js";
