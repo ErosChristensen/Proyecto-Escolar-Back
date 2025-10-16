@@ -19,9 +19,9 @@ router.post("/", async (req, res) => {
     // aceptamos 'contraseña' o 'contrasena' (Windows/PowerShell)
     const contraseña = (req.body?.contraseña ?? req.body?.contrasena ?? "").toString();
 
-    if (!esEmail(usuario) || contraseña.length < 8) {
-      return res.status(400).json({ error: "Datos inválidos" });
-    }
+    // if (!esEmail(usuario) || contraseña.length < 8) {
+    //   return res.status(400).json({ error: "Datos inválidos" });
+    // }
 
 const [rows] = await db.query(
   "SELECT id_admin, usuario, nombre, `contraseña` AS hash, disabled FROM admin WHERE LOWER(usuario) = LOWER(?)",
