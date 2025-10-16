@@ -15,7 +15,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "back": "node index.js"
   },
   "dependencies": {
@@ -33,9 +33,13 @@
     "mysql2": "^3.15.1",
     "nodemailer": "^7.0.6",
     "path": "^0.12.7",
-      "string-similarity": "^4.0.4",
+    "react-toastify": "^11.0.5",
+    "string-similarity": "^4.0.4",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "validator": "^13.15.15"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
   }
 }

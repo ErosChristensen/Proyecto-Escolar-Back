@@ -13,7 +13,7 @@ import preInscripcionForm from "./routes/preInscripcionForm.js";
 import formularioRoutes from "./routes/formulario.js";
 import AdminRegistro from "./routes/admin.registro.js";
 import preInscripcionFunction from "./routes/preInscripcionFunction.js";
-import preInscripcionRoutes from "./routes/preInscripcionFunctions.js";
+import preInscripcionRoutes from "./routes/preInscripcionFunction.js";
 
 dotenv.config();  
 

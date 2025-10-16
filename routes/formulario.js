@@ -9,27 +9,35 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { dni, alumno, mail, respuestas_formulario, modalidad_elegida } = req.body;
+    const { dni, nombre, apellido, mail, respuestas_formulario, modalidad_elegida } = req.body;
 
-    const [rows] = await db.query("SELECT formulario_modalidad_enviado FROM alumnos WHERE dni = ?", [dni]);
-    if (rows.length > 0 && rows[0].formulario_modalidad_enviado) {
+    // Verificar si ya envió el formulario
+    const [rows] = await db.query(
+      "SELECT formulario_modalidad_enviado FROM alumnos WHERE dni = ?",
+      [dni]
+    );
+
+    if (rows.length === 0) {
+      return res.status(400).json({ mensaje: "No se encontró al alumno. Debe estar registrado previamente." });
+    }
+
+    if (rows[0].formulario_modalidad_enviado) {
       return res.status(400).json({ mensaje: "Ya enviaste el formulario. Comunicate con la dirección." });
     }
 
+    // Solo actualizar los campos necesarios
     await db.query(
-      `INSERT INTO alumnos (dni, alumno, mail, respuestas_formulario, modalidad_elegida, formulario_modalidad_enviado)
-       VALUES (?, ?, ?, ?, ?, 1)
-       ON DUPLICATE KEY UPDATE
-         alumno = VALUES(alumno),
-         mail = VALUES(mail),
-         respuestas_formulario = VALUES(respuestas_formulario),
-         modalidad_elegida = VALUES(modalidad_elegida),
+      `UPDATE alumnos SET 
+         mail = ?,
+         respuestas_formulario = ?,
+         modalidad_elegida = ?,
          formulario_modalidad_enviado = 1,
-         updated_at = CURRENT_TIMESTAMP`,
-      [dni, alumno, mail, JSON.stringify(respuestas_formulario), modalidad_elegida]
+         updated_at = CURRENT_TIMESTAMP
+       WHERE dni = ?`,
+      [mail, JSON.stringify(respuestas_formulario), modalidad_elegida, dni]
     );
 
-    await enviarConfirmacionFormulario(mail, alumno, dni, modalidad_elegida, respuestas_formulario);
+    await enviarConfirmacionFormulario(mail, `${nombre} ${apellido}`, dni, modalidad_elegida, respuestas_formulario);
 
     res.json({ mensaje: "Formulario enviado y confirmado por mail." });
   } catch (err) {
@@ -38,18 +46,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+
 router.post("/pedir-codigo", async (req, res) => {
-  const { dni, mail, alumno } = req.body; 
-  if (!dni || !mail || !alumno) {
+  const { dni, mail, nombre, apellido } = req.body;
+
+  if (!dni || !mail || !nombre || !apellido) {
     return res.status(400).json({ 
-      error: "Falta DNI, alumno o mail" 
+      error: "Faltan datos: DNI, nombre, apellido o mail." 
     });
   }
 
   try {
     const [rows] = await db.query(
-      "SELECT * FROM alumnos WHERE dni = ? AND alumno = ?",
-      [dni, alumno]
+      "SELECT * FROM alumnos WHERE dni = ? AND nombre = ? AND apellido = ?",
+      [dni, nombre, apellido]
     );
 
     if (rows.length === 0) {
@@ -57,9 +67,9 @@ router.post("/pedir-codigo", async (req, res) => {
         error: "El usuario ingresado no se encuentra registrado en la institución. Verifique los datos de ingreso o comuníquese con los directivos."
       });
     }
+
     const codigo = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Guardar en memoria,  en 5 minutos
     codigosVerificacion[dni] = {
       codigo,
       mail,
@@ -74,6 +84,7 @@ router.post("/pedir-codigo", async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 
 // 👉 POST /validar-codigo
