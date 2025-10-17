@@ -55,7 +55,8 @@ app.use("/api/admin/registro", AdminRegistro);
 app.use("/api/admin/registro", preInscripcionFunction);
 app.use("/api/require-admin", RequireAdmin);
 app.use("/api/admin/modalidades", AdminModalidades);
-//Agregar los RequireAdmin a la de AdminRegistro, AdminNoticias y preInscripcionFunction
+//Agregar los RequireAdmin a la de AdminRegistro, AdminNoticias y preInscripcionFunction 
+
 // Root
 app.get("/", (_req, res) => {
 res.send("Servidor backend funcionando");
