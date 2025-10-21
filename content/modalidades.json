@@ -1,39 +1,86 @@
 {
-    "modalidad_1" : [
+  "modalidad_1": [
     {
-        "nombre": "PROGRAMACION",
-        "icono_img": "url",
-        "Introduccion": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "Alcance_de_titulo": " Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "talleres": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "porque_elegirla": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "elegir_modalidad": "",
-        "titulo": "TECNICO/A EN PROGRAMACION E INFORMATICA",
-        "multimedia_1": "url",
-        "multimedia_2": "url",   
-        "multimedia_3": "url",
-        "multimedia_4": "url",
-        "multimedia_5": "url",
-        "eslogan": "PROGRAMACION: LOGICA QUE TRANSFORMA"
-    }
-    ],
-
-    "modalidad_2" : [
+      "id": 0,
+      "titulo": "PROGRAMACIÓN",
+      "contenido": ""
+    },
     {
-        "nombre": "ELECTROMECANICA",
-        "icono_img": "url",
-        "Introduccion": " Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "Alcance_de_titulo": " Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "talleres": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "porque_elegirla": "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología. Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología",
-        "elegir_modalidad": "",
-        "titulo": "TECNICO/A  ELECTROMECANICA",
-        "multimedia_1": "url",
-        "multimedia_2": "url",   
-        "multimedia_3": "url",
-        "multimedia_4": "url",
-        "multimedia_5": "url",
-        "eslogan": "ELECTROMECANICA: FUERZA E INNOVACION"
+      "id": 1,
+      "titulo": "TÉCNICO/A EN PROGRAMACIÓN E INFORMÁTICA",
+      "contenido": ""
+    },
+    {
+      "id": 2,
+      "titulo": "PROGRAMACIÓN: LÓGICA QUE TRANSFORMA",
+      "contenido": ""
+    },
+    {
+      "id": 3,
+      "titulo": "INTRODUCCIÓN",
+      "contenido": "Aquí va la descripción de la modalidad de Programación. Este texto es editable."
+    },
+    {
+      "id": 4,
+      "titulo": "ALCANCE DEL TÍTULO",
+      "contenido": "Descripción del alcance del título en Programación, editable por el administrador."
+    },
+    {
+      "id": 5,
+      "titulo": "TALLERES PRINCIPALES",
+      "contenido": "Listado de talleres principales de la modalidad Programación."
+    },
+    {
+      "id": 6,
+      "titulo": "¿POR QUÉ ELEGIRLA?",
+      "contenido": "Motivos para elegir la modalidad de Programación."
+    },
+    {
+      "id": 7,
+      "titulo": "ELECCIÓN DE MODALIDAD",
+      "contenido": "Información sobre cómo elegir la modalidad de Programación."
     }
-    ]
+  ],
+  "modalidad_2": [
+    {
+      "id": 0,
+      "titulo": "ELECTROMECÁNICO",
+      "contenido": ""
+    },
+    {
+      "id": 1,
+      "titulo": "TÉCNICO/A ELECTROMECÁNICO",
+      "contenido": ""
+    },
+    {
+      "id": 2,
+      "titulo": "ELECTROMECÁNICA: FUERZA E INNOVACIÓN",
+      "contenido": ""
+    },
+    {
+      "id": 3,
+      "titulo": "INTRODUCCIÓN",
+      "contenido": "Aquí va la descripción de la modalidad de Electromecánica. Este texto es editable."
+    },
+    {
+      "id": 4,
+      "titulo": "ALCANCE DEL TÍTULO",
+      "contenido": "Descripción del alcance del título en Electromecánica, editable por el administrador."
+    },
+    {
+      "id": 5,
+      "titulo": "TALLERES PRINCIPALES",
+      "contenido": "Listado de talleres principales de la modalidad Electromecánica."
+    },
+    {
+      "id": 6,
+      "titulo": "¿POR QUÉ ELEGIRLA?",
+      "contenido": "Motivos para elegir la modalidad de Electromecánica."
+    },
+    {
+      "id": 7,
+      "titulo": "ELECCIÓN DE MODALIDAD",
+      "contenido": "Información sobre cómo elegir la modalidad de Electromecánica."
+    }
+  ]
 }
